@@ -116,7 +116,7 @@ export default function MasterPasswordPrompt({
                 const data = await response.json();
 
                 if (!data.valid) {
-                    setError('Ã¢ÂÅ’ Wrong master password! Please enter the correct master password you set initially.');
+                    setError('❌ Wrong master password! Please enter the correct master password you set initially.');
                     setIsValidating(false);
                     return;
                 }
@@ -156,11 +156,11 @@ export default function MasterPasswordPrompt({
                 <div className="mb-6">
                     <div className="flex items-center justify-center mb-4">
                         <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span className="text-3xl">Ã°Å¸â€Â</span>
+                            <span className="text-3xl">🔐</span>
                         </div>
                     </div>
                     <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">
-                        {isFirstTime ? 'Ã°Å¸Å½â€° Create Your Master Password' : title}
+                        {isFirstTime ? '🎉 Create Your Master Password' : title}
                     </h2>
                     <p className="text-sm text-gray-600 text-center">
                         {isFirstTime
@@ -174,7 +174,7 @@ export default function MasterPasswordPrompt({
                         </p>
                         {isFirstTime && (
                             <p className="text-xs text-blue-800 mt-2">
-                                <strong>Ã¢Å¡Â Ã¯Â¸Â This is your FIRST TIME setting a master password.</strong> Make it strong!
+                                <strong>⚠️ This is your FIRST TIME setting a master password.</strong> Make it strong!
                             </p>
                         )}
                     </div>
@@ -211,7 +211,7 @@ export default function MasterPasswordPrompt({
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                             >
-                                {showPassword ? 'Ã°Å¸â„¢Ë†' : 'Ã°Å¸â€˜ÂÃ¯Â¸Â'}
+                                {showPassword ? '🙈' : '👁️'}
                             </button>
                         </div>
                         {masterPassword && (
@@ -225,7 +225,7 @@ export default function MasterPasswordPrompt({
 
                     <div className="bg-yellow-50 rounded-md p-3 mb-4">
                         <p className="text-xs text-yellow-800">
-                            Ã¢Å¡Â Ã¯Â¸Â <strong>Important:</strong> Your master password is never sent to the server.
+                            ⚠️ <strong>Important:</strong> Your master password is never sent to the server.
                             If you forget it, your vault data cannot be recovered.
                         </p>
                     </div>
@@ -253,4 +253,3 @@ export default function MasterPasswordPrompt({
         </div>
     );
 }
-
