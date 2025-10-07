@@ -1,103 +1,81 @@
-import Image from "next/image";
+import { redirect } from 'next/navigation';
+import { auth } from '@/lib/auth';
+import Link from 'next/link';
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+
+  // If user is logged in, redirect to vault
+  if (session) {
+    redirect('/vault');
+  }
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+      <main className="max-w-4xl mx-auto px-4 py-16 text-center">
+        <div className="mb-8">
+          <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
+            🔐 Password Vault
+          </h1>
+          <p className="text-xl text-gray-600 mb-2">
+            Secure Password Generator & Encrypted Vault
+          </p>
+          <p className="text-sm text-gray-500">
+            Your passwords, encrypted and secure with client-side encryption
+          </p>
+        </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white rounded-lg p-6 shadow-lg">
+            <div className="text-4xl mb-3">🔒</div>
+            <h3 className="font-semibold text-gray-900 mb-2">
+              Client-Side Encryption
+            </h3>
+            <p className="text-sm text-gray-600">
+              Your data is encrypted in your browser before reaching our servers
+            </p>
+          </div>
+
+          <div className="bg-white rounded-lg p-6 shadow-lg">
+            <div className="text-4xl mb-3">🎲</div>
+            <h3 className="font-semibold text-gray-900 mb-2">
+              Password Generator
+            </h3>
+            <p className="text-sm text-gray-600">
+              Generate strong, customizable passwords with one click
+            </p>
+          </div>
+
+          <div className="bg-white rounded-lg p-6 shadow-lg">
+            <div className="text-4xl mb-3">💾</div>
+            <h3 className="font-semibold text-gray-900 mb-2">
+              Secure Storage
+            </h3>
+            <p className="text-sm text-gray-600">
+              Store all your passwords securely in your personal vault
+            </p>
+          </div>
+        </div>
+
+        <div className="flex gap-4 justify-center">
+          <Link
+            href="/register"
+            className="px-8 py-3 text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Get Started
+          </Link>
+          <Link
+            href="/login"
+            className="px-8 py-3 text-base font-medium rounded-lg text-gray-700 bg-white border-2 border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
           >
-            Read our docs
-          </a>
+            Sign In
+          </Link>
+        </div>
+
+        <div className="mt-12 text-xs text-gray-500">
+          <p>🔒 End-to-end encrypted • 🔐 Zero-knowledge architecture • 🛡️ Open source</p>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
