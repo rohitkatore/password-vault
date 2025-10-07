@@ -82,11 +82,11 @@ export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardP
                         disabled={loading}
                         className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white rounded-lg transition-colors"
                     >
-                        {loading ? 'â³ Decrypting...' : 'ðŸ”“ Decrypt'}
+                        {loading ? '³ Decrypting...' : 'ðŸ”“ Decrypt'}
                     </button>
                 </div>
                 {error && (
-                    <p className="mt-3 text-sm text-red-600">âš ï¸ {error}</p>
+                    <p className="mt-3 text-sm text-red-600">š ï¸ {error}</p>
                 )}
             </div>
         );
@@ -115,7 +115,7 @@ export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardP
                         className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                         title="Edit"
                     >
-                        âœï¸
+                        œï¸
                     </button>
                     <button
                         onClick={handleDelete}
@@ -143,7 +143,7 @@ export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardP
                                 onClick={() => handleCopy(decrypted.username || '', 'username')}
                                 className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition-colors"
                             >
-                                {copied === 'username' ? 'âœ“' : 'ðŸ“‹'}
+                                {copied === 'username' ? 'œ“' : 'ðŸ“‹'}
                             </button>
                         </div>
                     </div>
@@ -157,19 +157,19 @@ export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardP
                         </label>
                         <div className="flex items-center space-x-2">
                             <code className="flex-1 px-3 py-2 bg-gray-50 rounded text-sm text-gray-900 border border-gray-200 font-mono">
-                                {showPassword ? decrypted.password : 'â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢'}
+                                {showPassword ? decrypted.password : '€¢€¢€¢€¢€¢€¢€¢€¢€¢€¢€¢€¢'}
                             </code>
                             <button
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition-colors"
                             >
-                                {showPassword ? 'ðŸ‘ï¸' : 'ðŸ‘ï¸â€ðŸ—¨ï¸'}
+                                {showPassword ? 'ðŸ‘ï¸' : 'ðŸ‘ï¸€ðŸ—¨ï¸'}
                             </button>
                             <button
                                 onClick={() => handleCopy(decrypted.password || '', 'password')}
                                 className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition-colors"
                             >
-                                {copied === 'password' ? 'âœ“' : 'ðŸ“‹'}
+                                {copied === 'password' ? 'œ“' : 'ðŸ“‹'}
                             </button>
                         </div>
                     </div>
@@ -194,7 +194,7 @@ export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardP
                                 onClick={() => handleCopy(decrypted.url || '', 'url')}
                                 className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition-colors"
                             >
-                                {copied === 'url' ? 'âœ“' : 'ðŸ“‹'}
+                                {copied === 'url' ? 'œ“' : 'ðŸ“‹'}
                             </button>
                         </div>
                     </div>
