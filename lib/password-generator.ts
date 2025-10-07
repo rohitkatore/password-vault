@@ -43,7 +43,7 @@ export function generatePassword(options: PasswordOptions): string {
 
     // Build character set based on options
     let charset = '';
-    let requiredChars: string[] = [];
+    const requiredChars: string[] = [];
 
     if (includeUppercase) {
         const chars = excludeSimilar ? UPPERCASE.replace(SIMILAR_CHARS, '') : UPPERCASE;

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useEncryption } from '@/contexts/EncryptionContext';
 import { signOut } from '@/lib/auth-helpers';
 import { encryptVaultItem } from '@/lib/crypto';
+import { DecryptedVaultItem, VaultItemCreateData } from '@/types';
 import MasterPasswordPrompt from './MasterPasswordPrompt';
 import VaultItemCard from './VaultItemCard';
 import VaultItemForm from './VaultItemForm';
@@ -19,13 +20,13 @@ interface VaultDashboardProps {
 }
 
 export default function VaultDashboard({ user }: VaultDashboardProps) {
-  const { hasKey, setupEncryptionKey, clearEncryptionKey, isLocked, getEncryptionKey } = useEncryption();
+  const { hasKey, setupEncryptionKey, clearEncryptionKey, getEncryptionKey } = useEncryption();
   const [showMasterPasswordPrompt, setShowMasterPasswordPrompt] = useState(false);
-  const [vaultItems, setVaultItems] = useState<any[]>([]);
+  const [vaultItems, setVaultItems] = useState<DecryptedVaultItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
-  const [editingItem, setEditingItem] = useState<any | null>(null);
+  const [editingItem, setEditingItem] = useState<DecryptedVaultItem | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showExportImport, setShowExportImport] = useState(false);
 
@@ -78,7 +79,7 @@ export default function VaultDashboard({ user }: VaultDashboardProps) {
     setVaultItems([]);
   };
 
-  const handleAddItem = async (encryptedData: any) => {
+  const handleAddItem = async (encryptedData: VaultItemCreateData) => {
     try {
       const response = await fetch('/api/vault', {
         method: 'POST',
@@ -97,9 +98,9 @@ export default function VaultDashboard({ user }: VaultDashboardProps) {
     }
   };
 
-  const handleUpdateItem = async (encryptedData: any) => {
+  const handleUpdateItem = async (encryptedData: VaultItemCreateData) => {
     try {
-      const response = await fetch(`/api/vault/${editingItem._id}`, {
+      const response = await fetch(`/api/vault/${editingItem?._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(encryptedData),
@@ -132,12 +133,12 @@ export default function VaultDashboard({ user }: VaultDashboardProps) {
     }
   };
 
-  const handleEditItem = (item: any) => {
+  const handleEditItem = (item: DecryptedVaultItem) => {
     setEditingItem(item);
     setShowAddForm(false);
   };
 
-  const handleImportItems = async (items: any[]) => {
+  const handleImportItems = async (items: DecryptedVaultItem[]) => {
     try {
       const key = getEncryptionKey();
       if (!key) {
@@ -245,7 +246,13 @@ export default function VaultDashboard({ user }: VaultDashboardProps) {
                   setShowAddForm(false);
                   setEditingItem(null);
                 }}
-                initialData={editingItem}
+                initialData={editingItem ? {
+                  title: editingItem.title,
+                  username: editingItem.username || '',
+                  password: editingItem.password || '',
+                  url: editingItem.url || '',
+                  notes: editingItem.notes || ''
+                } : undefined}
                 isEdit={!!editingItem}
               />
             </div>

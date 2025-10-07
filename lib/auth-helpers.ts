@@ -28,11 +28,12 @@ export async function registerUser(
         }
 
         return data;
-    } catch (error: any) {
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         return {
             success: false,
             message: 'Network error',
-            error: error.message,
+            error: errorMessage,
         };
     }
 }
@@ -72,11 +73,12 @@ export async function signIn(
             success: false,
             message: 'Login failed',
         };
-    } catch (error: any) {
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         return {
             success: false,
             message: 'Authentication error',
-            error: error.message,
+            error: errorMessage,
         };
     }
 }

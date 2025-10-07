@@ -45,7 +45,7 @@ export function encrypt(plaintext: string, key: string): string {
     try {
         const ciphertext = CryptoJS.AES.encrypt(plaintext, key).toString();
         return ciphertext;
-    } catch (error) {
+    } catch {
         throw new Error('Failed to encrypt data');
     }
 }
@@ -68,7 +68,7 @@ export function decrypt(ciphertext: string, key: string): string {
         }
 
         return plaintext;
-    } catch (error) {
+    } catch {
         throw new Error('Failed to decrypt data - wrong master password?');
     }
 }
@@ -146,7 +146,7 @@ export function decryptVaultItem(
             createdAt: item.createdAt,
             updatedAt: item.updatedAt,
         };
-    } catch (error) {
+    } catch {
         throw new Error('Decryption failed - wrong master password?');
     }
 }
@@ -224,7 +224,7 @@ export function testEncryption(): boolean {
         const encrypted = encrypt(testData, testKey);
         const decrypted = decrypt(encrypted, testKey);
         return decrypted === testData;
-    } catch (error) {
+    } catch {
         return false;
     }
 }

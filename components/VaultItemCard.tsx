@@ -3,26 +3,17 @@
 import { useState } from 'react';
 import { decryptVaultItem } from '@/lib/crypto';
 import { useEncryption } from '@/contexts/EncryptionContext';
+import { DecryptedVaultItem } from '@/types';
 
 interface VaultItemCardProps {
-    item: {
-        _id: string;
-        userId: string;
-        title: string;
-        username: string;
-        password: string;
-        url: string;
-        notes: string;
-        createdAt: string;
-        updatedAt: string;
-    };
-    onEdit: (item: any) => void;
+    item: DecryptedVaultItem;
+    onEdit: (item: DecryptedVaultItem) => void;
     onDelete: (id: string) => void;
 }
 
 export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardProps) {
     const { getEncryptionKey } = useEncryption();
-    const [decrypted, setDecrypted] = useState<any>(null);
+    const [decrypted, setDecrypted] = useState<DecryptedVaultItem | null>(null);
     const [showPassword, setShowPassword] = useState(false);
     const [copied, setCopied] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -41,7 +32,7 @@ export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardP
 
             const decryptedData = decryptVaultItem(item, key);
             setDecrypted(decryptedData);
-        } catch (err) {
+        } catch {
             setError('Failed to decrypt. Wrong master password?');
         } finally {
             setLoading(false);
@@ -53,7 +44,7 @@ export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardP
             await navigator.clipboard.writeText(text);
             setCopied(field);
             setTimeout(() => setCopied(null), 2000);
-        } catch (err) {
+        } catch {
         }
     };
 
@@ -149,7 +140,7 @@ export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardP
                                 {decrypted.username}
                             </code>
                             <button
-                                onClick={() => handleCopy(decrypted.username, 'username')}
+                                onClick={() => handleCopy(decrypted.username || '', 'username')}
                                 className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition-colors"
                             >
                                 {copied === 'username' ? 'âœ“' : 'ðŸ“‹'}
@@ -175,7 +166,7 @@ export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardP
                                 {showPassword ? 'ðŸ‘ï¸' : 'ðŸ‘ï¸â€ðŸ—¨ï¸'}
                             </button>
                             <button
-                                onClick={() => handleCopy(decrypted.password, 'password')}
+                                onClick={() => handleCopy(decrypted.password || '', 'password')}
                                 className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition-colors"
                             >
                                 {copied === 'password' ? 'âœ“' : 'ðŸ“‹'}
@@ -200,7 +191,7 @@ export default function VaultItemCard({ item, onEdit, onDelete }: VaultItemCardP
                                 {decrypted.url}
                             </a>
                             <button
-                                onClick={() => handleCopy(decrypted.url, 'url')}
+                                onClick={() => handleCopy(decrypted.url || '', 'url')}
                                 className="px-3 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition-colors"
                             >
                                 {copied === 'url' ? 'âœ“' : 'ðŸ“‹'}

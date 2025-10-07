@@ -24,7 +24,6 @@ export default function MasterPasswordPrompt({
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [isValidating, setIsValidating] = useState(false);
-    const [hasMasterPassword, setHasMasterPassword] = useState<boolean | null>(null);
     const [isFirstTime, setIsFirstTime] = useState(false);
 
     useEffect(() => {
@@ -45,10 +44,9 @@ export default function MasterPasswordPrompt({
                 return;
             }
 
-            setHasMasterPassword(data.hasMasterPassword);
             setIsFirstTime(!data.hasMasterPassword);
 
-        } catch (error) {
+        } catch {
             alert('Error checking master password. Please refresh and try again.');
         }
     };
@@ -126,7 +124,7 @@ export default function MasterPasswordPrompt({
                 // Success - proceed with decryption
                 onSubmit(masterPassword);
             }
-        } catch (error) {
+        } catch {
             setError('Failed to verify master password');
         } finally {
             setIsValidating(false);

@@ -9,7 +9,7 @@ import VaultItem from '@/models/VaultItem';
  */
 export async function GET(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await auth();
@@ -20,8 +20,10 @@ export async function GET(
 
         await dbConnect();
 
+        const { id } = await params;
+
         const item = await VaultItem.findOne({
-            _id: params.id,
+            _id: id,
             userId: session.user.id,
         });
 
@@ -30,7 +32,7 @@ export async function GET(
         }
 
         return NextResponse.json({ item }, { status: 200 });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Failed to fetch vault item' }, { status: 500 });
     }
 }
@@ -41,7 +43,7 @@ export async function GET(
  */
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await auth();
@@ -60,9 +62,11 @@ export async function PUT(
 
         await dbConnect();
 
+        const { id } = await params;
+
         // Find and update (data is already encrypted on client)
         const item = await VaultItem.findOneAndUpdate(
-            { _id: params.id, userId: session.user.id },
+            { _id: id, userId: session.user.id },
             {
                 title,
                 username: username || '',
@@ -78,7 +82,7 @@ export async function PUT(
         }
 
         return NextResponse.json({ item }, { status: 200 });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Failed to update vault item' }, { status: 500 });
     }
 }
@@ -89,7 +93,7 @@ export async function PUT(
  */
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const session = await auth();
@@ -100,8 +104,10 @@ export async function DELETE(
 
         await dbConnect();
 
+        const { id } = await params;
+
         const item = await VaultItem.findOneAndDelete({
-            _id: params.id,
+            _id: id,
             userId: session.user.id,
         });
 
@@ -110,7 +116,7 @@ export async function DELETE(
         }
 
         return NextResponse.json({ message: 'Vault item deleted successfully' }, { status: 200 });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Failed to delete vault item' }, { status: 500 });
     }
 }

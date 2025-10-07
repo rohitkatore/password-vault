@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useEncryption } from '@/contexts/EncryptionContext';
+import { DecryptedVaultItem } from '@/types';
 import { decryptVaultItem } from '@/lib/crypto';
 import {
   exportVaultToJSON,
@@ -14,8 +15,8 @@ import {
 } from '@/lib/vault-export';
 
 interface ExportImportModalProps {
-  vaultItems: any[];
-  onImport: (items: any[]) => void;
+  vaultItems: DecryptedVaultItem[];
+  onImport: (items: DecryptedVaultItem[]) => void;
   onClose: () => void;
 }
 
@@ -38,7 +39,7 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
       const decryptedItems = vaultItems.map(item => {
         try {
           return decryptVaultItem(item, key);
-        } catch (error) {
+        } catch {
           return null;
         }
       }).filter(item => item !== null);
@@ -47,7 +48,7 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
       downloadVaultFile(jsonData);
 
       alert(`âœ… Exported ${decryptedItems.length} items successfully!`);
-    } catch (error) {
+    } catch {
       alert('Failed to export vault data');
     }
   };
@@ -64,7 +65,7 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
       const decryptedItems = vaultItems.map(item => {
         try {
           return decryptVaultItem(item, key);
-        } catch (error) {
+        } catch {
           return null;
         }
       }).filter(item => item !== null);
@@ -73,7 +74,7 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
       downloadCSVFile(csvData);
 
       alert(`âœ… Exported ${decryptedItems.length} items to CSV successfully!`);
-    } catch (error) {
+    } catch {
       alert('Failed to export vault data');
     }
   };
@@ -263,3 +264,4 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
     </div>
   );
 }
+

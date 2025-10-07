@@ -3,21 +3,25 @@
  * Export and import encrypted vault data
  */
 
+import { DecryptedVaultItem } from '@/types';
+
 export interface ExportedVault {
   version: string;
   exportedAt: string;
-  items: any[];
+  items: DecryptedVaultItem[];
   itemCount: number;
 }
 
 /**
  * Export vault items to JSON
  */
-export function exportVaultToJSON(items: any[]): string {
+export function exportVaultToJSON(items: DecryptedVaultItem[]): string {
   const exportData: ExportedVault = {
     version: '1.0.0',
     exportedAt: new Date().toISOString(),
     items: items.map(item => ({
+      _id: item._id,
+      userId: item.userId,
       title: item.title,
       username: item.username,
       password: item.password,
@@ -91,7 +95,7 @@ export function readFileAsText(file: File): Promise<string> {
 /**
  * Export vault to encrypted CSV format
  */
-export function exportVaultToCSV(items: any[]): string {
+export function exportVaultToCSV(items: DecryptedVaultItem[]): string {
   const headers = ['Title', 'Username', 'Password', 'URL', 'Notes', 'Created', 'Updated'];
   const rows = items.map(item => [
     item.title,

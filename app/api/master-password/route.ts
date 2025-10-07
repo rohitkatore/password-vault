@@ -26,7 +26,7 @@ export async function GET() {
         return NextResponse.json({
             hasMasterPassword: !!user.masterPasswordHash,
         });
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             { error: 'Failed to check master password' },
             { status: 500 }
@@ -73,16 +73,9 @@ export async function POST(request: NextRequest) {
             }
 
             // Hash the master password
-
             const hash = await bcrypt.hash(masterPassword, 10);
-
             user.masterPasswordHash = hash;
-
-            const savedUser = await user.save();
-
-
-            // Verify it was saved by re-querying
-            const verifyUser = await User.findById(session.user.id);
+            await user.save();
 
             return NextResponse.json({
                 success: true,
@@ -114,7 +107,7 @@ export async function POST(request: NextRequest) {
             { error: 'Invalid action. Use "set" or "verify"' },
             { status: 400 }
         );
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             { error: 'Failed to process master password' },
             { status: 500 }
@@ -175,7 +168,7 @@ export async function PUT(request: NextRequest) {
             message: 'Master password changed successfully',
             warning: 'All existing vault items are encrypted with the old master password. You will need to re-encrypt them.',
         });
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             { error: 'Failed to change master password' },
             { status: 500 }

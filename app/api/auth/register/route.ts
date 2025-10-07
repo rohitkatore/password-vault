@@ -83,12 +83,13 @@ export async function POST(request: NextRequest) {
             },
             { status: 201 }
         );
-    } catch (error: any) {
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Internal server error';
         return NextResponse.json<ApiResponse>(
             {
                 success: false,
                 message: 'Registration failed',
-                error: error.message || 'Internal server error',
+                error: errorMessage,
             },
             { status: 500 }
         );

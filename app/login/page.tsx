@@ -30,8 +30,9 @@ export default function LoginPage() {
             } else {
                 setError(result.message || 'Login failed');
             }
-        } catch (err: any) {
-            setError(err.message || 'An error occurred during login');
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred during login';
+            setError(errorMessage);
         } finally {
             setIsLoading(false);
         }

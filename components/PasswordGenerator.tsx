@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
     generatePassword,
     calculatePasswordStrength,
@@ -20,10 +20,28 @@ export default function PasswordGenerator({ onSaveToVault }: PasswordGeneratorPr
     const [error, setError] = useState<string | null>(null);
     const [strength, setStrength] = useState({ score: 0, label: '', color: '' });
 
+    const handleGenerate = useCallback(() => {
+        try {
+            const validation = validateOptions(options);
+            if (!validation.valid) {
+                setError(validation.error || 'Invalid password options');
+                return;
+            }
+
+            const newPassword = generatePassword(options);
+            setPassword(newPassword);
+            setStrength(calculatePasswordStrength(newPassword));
+            setError(null);
+            setCopied(false);
+        } catch {
+            setError('Failed to generate password. Please try again.');
+        }
+    }, [options]);
+
     // Generate initial password on mount
     useEffect(() => {
         handleGenerate();
-    }, []);
+    }, [handleGenerate]);
 
     // Update strength when password changes
     useEffect(() => {
@@ -43,29 +61,11 @@ export default function PasswordGenerator({ onSaveToVault }: PasswordGeneratorPr
         }
     }, [copied]);
 
-    const handleGenerate = () => {
-        try {
-            setError(null);
-            const validation = validateOptions(options);
-
-            if (!validation.valid) {
-                setError(validation.error || 'Invalid options');
-                return;
-            }
-
-            const newPassword = generatePassword(options);
-            setPassword(newPassword);
-            setCopied(false); // Reset copied state when generating new password
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to generate password');
-        }
-    };
-
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(password);
             setCopied(true);
-        } catch (err) {
+        } catch {
             setError('Failed to copy to clipboard');
         }
     };
@@ -293,7 +293,7 @@ export default function PasswordGenerator({ onSaveToVault }: PasswordGeneratorPr
                             <li>• Include multiple character types (uppercase, lowercase, numbers, symbols)</li>
                             <li>• Avoid using personal information or common words</li>
                             <li>• Use unique passwords for each account</li>
-                            <li>• Consider enabling "Exclude Similar Characters" to avoid confusion</li>
+                            <li>• Consider enabling &quot;Exclude Similar Characters&quot; to avoid confusion</li>
                         </ul>
                     </div>
                 </div>

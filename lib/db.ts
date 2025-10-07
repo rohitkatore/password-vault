@@ -22,10 +22,10 @@ declare global {
     var mongoose: MongooseCache | undefined;
 }
 
-let cached: MongooseCache = (globalThis as any).mongoose || { conn: null, promise: null };
+const cached: MongooseCache = (globalThis as typeof globalThis & { mongoose?: MongooseCache }).mongoose || { conn: null, promise: null };
 
-if (!(globalThis as any).mongoose) {
-    (globalThis as any).mongoose = cached;
+if (!(globalThis as typeof globalThis & { mongoose?: MongooseCache }).mongoose) {
+    (globalThis as typeof globalThis & { mongoose?: MongooseCache }).mongoose = cached;
 }
 
 async function connectDB(): Promise<typeof mongoose> {

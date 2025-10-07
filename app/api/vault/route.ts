@@ -20,7 +20,7 @@ export async function GET() {
         const items = await VaultItem.find({ userId: session.user.id }).sort({ createdAt: -1 });
 
         return NextResponse.json({ items }, { status: 200 });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Failed to fetch vault items' }, { status: 500 });
     }
 }
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
         });
 
         return NextResponse.json({ item: vaultItem }, { status: 201 });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Failed to create vault item' }, { status: 500 });
     }
 }

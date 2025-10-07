@@ -5,9 +5,10 @@ import { encryptVaultItem } from '@/lib/crypto';
 import { useEncryption } from '@/contexts/EncryptionContext';
 import PasswordGenerator from './PasswordGenerator';
 import PasswordStrengthMeter from './PasswordStrengthMeter';
+import { VaultItemCreateData } from '@/types';
 
 interface VaultItemFormProps {
-    onSubmit: (encryptedData: any) => Promise<void>;
+    onSubmit: (encryptedData: VaultItemCreateData) => Promise<void>;
     onCancel: () => void;
     initialData?: {
         title: string;
