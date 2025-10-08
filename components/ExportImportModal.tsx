@@ -123,7 +123,7 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-2xl font-bold text-gray-900">
-            ðŸ“¦ Export / Import Vault
+            📦 Export / Import Vault
           </h2>
           <button
             onClick={onClose}
@@ -140,20 +140,20 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
           <button
             onClick={() => setActiveTab('export')}
             className={`flex-1 px-6 py-3 font-medium ${activeTab === 'export'
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-600 hover:text-gray-800'
+              ? 'text-blue-600 border-b-2 border-blue-600'
+              : 'text-gray-600 hover:text-gray-800'
               }`}
           >
-            ðŸ“¤ Export
+            📤 Export
           </button>
           <button
             onClick={() => setActiveTab('import')}
             className={`flex-1 px-6 py-3 font-medium ${activeTab === 'import'
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-600 hover:text-gray-800'
+              ? 'text-blue-600 border-b-2 border-blue-600'
+              : 'text-gray-600 hover:text-gray-800'
               }`}
           >
-            ðŸ“¥ Import
+            📥 Import
           </button>
         </div>
 
@@ -163,7 +163,7 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
             <div className="space-y-6">
               <div className="bg-blue-50 rounded-lg p-4">
                 <p className="text-sm text-blue-800">
-                  â„¹ï¸ Your vault data will be decrypted and exported. Keep the exported file secure!
+                  ℹ️ Your vault data will be decrypted and exported. Keep the exported file secure!
                 </p>
               </div>
 
@@ -195,7 +195,7 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
 
               <div className="mt-6 p-4 bg-yellow-50 rounded-lg">
                 <p className="text-xs text-yellow-800">
-                  âš ï¸ <strong>Security Warning:</strong> Exported files contain unencrypted passwords.
+                  ⚠️ <strong>Security Warning:</strong> Exported files contain unencrypted passwords.
                   Store them securely and delete after use.
                 </p>
               </div>
@@ -204,7 +204,7 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
             <div className="space-y-6">
               <div className="bg-blue-50 rounded-lg p-4">
                 <p className="text-sm text-blue-800">
-                  â„¹ï¸ Import vault data from a JSON file exported from this application.
+                  ℹ️ Import vault data from a JSON file exported from this application.
                 </p>
               </div>
 
@@ -253,7 +253,7 @@ export default function ExportImportModal({ vaultItems, onImport, onClose }: Exp
 
               <div className="mt-6 p-4 bg-yellow-50 rounded-lg">
                 <p className="text-xs text-yellow-800">
-                  âš ï¸ <strong>Note:</strong> Imported items will be encrypted with your current master password
+                  ⚠️ <strong>Note:</strong> Imported items will be encrypted with your current master password
                   and added to your vault. Existing items will not be affected.
                 </p>
               </div>
