@@ -136,20 +136,6 @@ Try it out with sample data provided in `sample-vault-data.json`!
 
 ## 📖 Documentation
 
-### Project Documentation
-- [`PROJECT_COMPLETE.md`](./PROJECT_COMPLETE.md) - Complete project overview & architecture
-- [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md) - Common issues and solutions
-
-### Implementation Steps
-- [`STEP_A_COMPLETE.md`](./STEP_A_COMPLETE.md) - Project setup & database models
-- [`STEP_B_COMPLETE.md`](./STEP_B_COMPLETE.md) - Authentication system (NextAuth.js)
-- [`STEP_C_COMPLETE.md`](./STEP_C_COMPLETE.md) - Client-side encryption (AES-256)
-- [`STEP_D_COMPLETE.md`](./STEP_D_COMPLETE.md) - Password generator & strength checker
-- [`STEP_E_COMPLETE.md`](./STEP_E_COMPLETE.md) - Vault dashboard & CRUD operations
-- [`STEP_F_COMPLETE.md`](./STEP_F_COMPLETE.md) - Polish, dark mode, export/import
-
----
-
 ## � Project Structure
 
 ```
